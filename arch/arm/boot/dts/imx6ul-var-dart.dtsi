@@ -404,6 +404,21 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c1>;
 	status = "okay";
+
+	/* Atmel mxt640t Touchcontroller */
+	touch@4a {
+                 	compatible = "atmel,maxtouch";
+                 	reg = <0x4a>;
+		 	interrupt-parent = <&gpio5>;
+		 	interrupts = <5 IRQ_TYPE_LEVEL_LOW>;
+       		};
+
+	/* ST M41T00S RTC module */
+        rtc@0x68 {
+                 compatible = "stm,m41t00";
+                 reg = <0x68>;
+	};
+
 };
 
 &i2c2 {
@@ -417,40 +432,6 @@
 		reg = <0x1a>;
 		clocks = <&clks IMX6UL_CLK_SAI2>;
 		clock-names = "mclk";
-	};
-
-	ft5x06_ts@38 {
-		compatible = "focaltech,5x06";
-		reg = <0x38>;
-		focaltech,family-id = <0x54>;
-		interrupt-parent = <&gpio3>;
-		interrupts = <4 0>;
-		vdd-supply = <&touch_3v3_regulator>;
-		vcc_i2c-supply = <&touch_3v3_regulator>;
-		focaltech,irq-gpio = <&gpio3 4 0x00>;
-		focaltech,display-coords = <0 0 800 480>;
-		focaltech,name = "ft6x06";
-		focaltech,no-force-update;
-		focaltech,group-id = <1>;
-		focaltech,hard-reset-delay-ms = <20>;
-		focaltech,soft-reset-delay-ms = <150>;
-		focaltech,num-max-touches = <2>;
-		focaltech,fw-name = "ft_8610_qrd_fw.bin";
-		focaltech,fw-delay-aa-ms = <100>;
-		focaltech,fw-delay-55-ms = <30>;
-		focaltech,fw-upgrade-id1 = <0x79>;
-		focaltech,fw-upgrade-id2 = <0x08>;
-		focaltech,fw-delay-readid-ms = <10>;
-		focaltech,fw-delay-era-flsh-ms = <2000>;
-		focaltech,fw-auto-cal;
-		focaltech,mirror_h;
-		focaltech,mirror_v;
-	};
-
-	/* DS1307 RTC module */
-	rtc@0x68 {
-		compatible = "dallas,ds1307";
-		reg = <0x68>;
 	};
 };
 
@@ -467,6 +448,7 @@
 				MX6UL_PAD_GPIO1_IO06__ENET2_MDIO	0x1b0b0
 				MX6UL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0	/* BT Enable */
 				MX6UL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0
+				MX6UL_PAD_SNVS_TAMPER5__GPIO5_IO05 	0x1b0b0
 			>;
 		};
 
