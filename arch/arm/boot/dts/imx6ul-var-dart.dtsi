@@ -425,7 +425,7 @@
 	clock_frequency = <100000>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c2>;
-	status = "okay";
+	status = "disable";
 
 	codec: wm8731@1a {
 		compatible = "wlf,wm8731";
@@ -525,7 +525,7 @@
 
 		pinctrl_pwm1: pwm1grp {
 			fsl,pins = <
-				MX6UL_PAD_LCD_DATA00__PWM1_OUT		0x110b0
+				MX6UL_PAD_JTAG_TRST_B__SAI2_TX_DATA	0x110b0
 			>;
 		};
 
@@ -666,7 +666,6 @@
 			fsl,pins = <
 				MX6UL_PAD_JTAG_TDI__SAI2_TX_BCLK	0x17088
 				MX6UL_PAD_JTAG_TDO__SAI2_TX_SYNC	0x17088
-				MX6UL_PAD_JTAG_TRST_B__SAI2_TX_DATA	0x11088
 				MX6UL_PAD_JTAG_TCK__SAI2_RX_DATA	0x11088
 				MX6UL_PAD_JTAG_TMS__CCM_CLKO1		0x17088
 			>;
