@@ -425,7 +425,7 @@
 	clock_frequency = <100000>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c2>;
-	status = "disable";
+	status = "disabled";
 
 	codec: wm8731@1a {
 		compatible = "wlf,wm8731";
