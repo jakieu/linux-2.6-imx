@@ -51,7 +51,7 @@
 	beeper {
 		compatible = "pwm-beeper";
 		pwms = <&pwm6 0 5000000>;
-		status = "okay";
+		status = "disabled";
 	};
 
 	pxp_v4l2 {
@@ -265,7 +265,7 @@
 &tsc {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_tsc>;
-	xnur-gpio = <&gpio1 3 GPIO_ACTIVE_LOW>;
+	xnur-gpio = <&gpio1 3 0>;
 	measure_delay_time = <0xffff>;
 	pre_charge_time = <0xfff>;
 	status = "disabled";
