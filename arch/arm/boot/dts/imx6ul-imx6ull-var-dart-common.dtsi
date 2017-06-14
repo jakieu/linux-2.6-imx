@@ -22,10 +22,16 @@
 
 	backlight {
 		compatible = "pwm-backlight";
-		pwms = <&pwm1 0 20000>;
-		brightness-levels = <0 4 8 16 32 64 128 255>;
-		default-brightness-level = <6>;
+		pwms = <&pwm8 0 20000>;
+		brightness-levels = <254 240 224 208 192 176 160 144 128 112 96 80 64 48 32 16 0>;
+		default-brightness-level = <16>;
 		status = "okay";
+	};
+
+	beeper {
+		compatible = "pwm-beeper";
+		pwms = <&pwm6 0 5000000>;
+		status = "disabled";
 	};
 
 	pxp_v4l2 {
@@ -209,15 +215,15 @@
 		display-timings {
 			native-mode = <&timing0>;
 			timing0: timing0 {
-				clock-frequency =<35000000>;
+				clock-frequency =<46800000>;
 				hactive = <800>;
 				vactive = <480>;
-				hfront-porch = <40>;
-				hback-porch = <40>;
-				hsync-len = <48>;
-				vback-porch = <29>;
-				vfront-porch = <13>;
-				vsync-len = <3>;
+				hfront-porch = <16>;
+				hback-porch = <46>;
+				hsync-len = <2>;
+				vback-porch = <23>;
+				vfront-porch = <7>;
+				vsync-len = <2>;
 				hsync-active = <0>;
 				vsync-active = <0>;
 				de-active = <1>;
@@ -227,9 +233,15 @@
 	};
 };
 
-&pwm1 {
+&pwm6 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_pwm1>;
+	pinctrl-0 = <&pinctrl_pwm6>;
+	status = "okay";
+};
+
+&pwm8 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm8>;
 	status = "okay";
 };
 
@@ -279,10 +291,9 @@
 	status = "okay";
 };
 
-/* ttymxc2 UART */
-&uart3 {
+&uart4 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_uart3>;
+	pinctrl-0 = <&pinctrl_uart4>;
 	fsl,uart-has-rtscts;
 	status = "okay";
 };
@@ -389,6 +400,20 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c1>;
 	status = "okay";
+
+	/* Atmel mxt640t Touchcontroller */
+	touch@4a {
+                 	compatible = "atmel,maxtouch";
+                 	reg = <0x4a>;
+		 	interrupt-parent = <&gpio5>;
+		 	interrupts = <5 IRQ_TYPE_LEVEL_LOW>;
+       		};
+
+	/* ST M41T00S RTC module */
+        rtc@0x68 {
+                 compatible = "stm,m41t00";
+                 reg = <0x68>;
+	};
 };
 
 &i2c2 {
@@ -396,13 +421,6 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c2>;
 	status = "okay";
-
-	codec: wm8731@1a {
-		compatible = "wlf,wm8731";
-		reg = <0x1a>;
-		clocks = <&clks IMX6UL_CLK_SAI2>;
-		clock-names = "mclk";
-	};
 
 	ft5x06_ts@38 {
 		compatible = "edt,edt-ft5x06";
@@ -413,12 +431,6 @@
 		touchscreen-size-y = <480>;
 		touchscreen-inverted-x;
 		touchscreen-inverted-y;
-	};
-
-	/* DS1307 RTC module */
-	rtc@0x68 {
-		compatible = "dallas,ds1307";
-		reg = <0x68>;
 	};
 };
 
@@ -467,8 +479,8 @@
 
 		pinctrl_flexcan1: flexcan1grp{
 			fsl,pins = <
-				MX6UL_PAD_LCD_DATA09__FLEXCAN1_RX	0x1b020
-				MX6UL_PAD_LCD_DATA08__FLEXCAN1_TX	0x1b020
+				MX6UL_PAD_UART3_RTS_B__FLEXCAN1_RX	0x1b020
+				MX6UL_PAD_UART3_CTS_B__FLEXCAN1_TX	0x1b020
 			>;
 		};
 
@@ -509,9 +521,15 @@
 			>;
 		};
 
-		pinctrl_pwm1: pwm1grp {
+		pinctrl_pwm6: pwm6grp {
 			fsl,pins = <
-				MX6UL_PAD_LCD_DATA00__PWM1_OUT		0x110b0
+				MX6UL_PAD_JTAG_TDI__PWM6_OUT		0x110b0
+			>;
+		};
+
+		pinctrl_pwm8: pwm8grp {
+			fsl,pins = <
+				MX6UL_PAD_JTAG_TRST_B__PWM8_OUT		0x110b0
 			>;
 		};
 
@@ -537,6 +555,15 @@
 				MX6UL_PAD_UART3_RX_DATA__UART3_DCE_RX	0x1b0b1
 				MX6UL_PAD_UART3_CTS_B__UART3_DCE_CTS	0x1b0b1
 				MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
+			>;
+		};
+
+		pinctrl_uart4: uart4grp {
+			fsl,pins = <
+                                MX6UL_PAD_UART4_TX_DATA__UART4_DCE_TX   0x1b0b1
+                                MX6UL_PAD_UART4_RX_DATA__UART4_DCE_RX   0x1b0b1
+				MX6UL_PAD_ENET1_RX_DATA1__UART4_DCE_CTS	0x1b0b1
+				MX6UL_PAD_ENET1_RX_DATA0__UART4_DCE_RTS	0x1b0b1
 			>;
 		};
 
