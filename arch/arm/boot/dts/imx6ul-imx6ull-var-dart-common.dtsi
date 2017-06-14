@@ -86,18 +86,6 @@
 		};
 	};
 
-	sound {
-		compatible = "fsl,imx-audio-wm8731";
-		model = "wm8731-audio";
-		cpu-dai = <&sai2>;
-		audio-codec = <&codec>;
-		audio-routing =
-			"Headphone Jack",	"LHPOUT",
-			"Headphone Jack",	"RHPOUT",
-			"LLINEIN",		"Line Jack",
-			"RLINEIN",		"Line Jack";
-	};
-
 	keys {
 		compatible = "gpio-keys";
 
