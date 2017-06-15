@@ -270,11 +270,12 @@
 	status = "okay";
 };
 
+/* ttymxc2 UART */
 &uart3 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_uart3>;
 	fsl,uart-has-rtscts;
-	status = "okay";
+	status = "disabled";
 };
 
 &wdog1 {
@@ -401,16 +402,6 @@
 	pinctrl-0 = <&pinctrl_i2c2>;
 	status = "okay";
 
-	ft5x06_ts@38 {
-		compatible = "edt,edt-ft5x06";
-		reg = <0x38>;
-		interrupt-parent = <&gpio3>;
-		interrupts = <4 0>;
-		touchscreen-size-x = <800>;
-		touchscreen-size-y = <480>;
-		touchscreen-inverted-x;
-		touchscreen-inverted-y;
-	};
 };
 
 &iomuxc {
