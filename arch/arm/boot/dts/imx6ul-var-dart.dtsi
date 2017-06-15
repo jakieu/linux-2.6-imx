@@ -166,7 +166,7 @@
 	phy-handle = <&ethphy1>;
 	phy-reset-gpios=<&gpio1 10 1>;
 	phy-reset-duration=<100>;
-	status = "disabled";
+	status = "okay";
 	mdio {
 		#address-cells = <1>;
 		#size-cells = <0>;
@@ -177,14 +177,6 @@
 			clocks = <&rmii_ref_clk>;
 			clock-names = "rmii-ref";
 			reg = <1>;
-		};
-
-		ethphy1: ethernet-phy@3 {
-			compatible = "ethernet-phy-ieee802.3-c22";
-			micrel,rmii-reference-clock-select-25-mhz;
-			clocks = <&rmii_ref_clk>;
-			clock-names = "rmii-ref";
-			reg = <3>;
 		};
 	};
 };
