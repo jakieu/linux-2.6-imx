@@ -166,7 +166,7 @@
 	phy-handle = <&ethphy1>;
 	phy-reset-gpios=<&gpio1 10 1>;
 	phy-reset-duration=<100>;
-	status = "okay";
+	status = "disabled";
 	mdio {
 		#address-cells = <1>;
 		#size-cells = <0>;
