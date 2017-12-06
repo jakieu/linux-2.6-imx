@@ -394,7 +394,7 @@
     };
 
 	/* ST M41T00S RTC module */
-    rtc@0x68 {
+    	rtc@0x68 {
         compatible = "stm,m41t00";
         reg = <0x68>;
 	};		 
